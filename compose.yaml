@@ -1,0 +1,11 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_HOST: mysqldb'
+      - 'MYSQL_DATABASE=bank'
+      - 'MYSQL_USER=root'
+      - 'MYSQL_PASSWORD=internet'
+      - 'MYSQL_PORT=3306'
+    ports:
+      - '3307:3306'
