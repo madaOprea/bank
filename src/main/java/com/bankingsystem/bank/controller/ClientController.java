@@ -20,9 +20,9 @@ public class ClientController {
     @Autowired
     private DocumentServiceImplementation documentServiceImplementation;
 
-    @GetMapping("/{clientId}")
+    @GetMapping("/{clientId}/eligibility")
     @ApiOperation(value = "Check Client Eligibility", notes = "Check if a client is eligible for enrollment")
-    public ResponseEntity<String> performClientCheck(@PathVariable String clientId) {
+    public ResponseEntity<String> IsTheClientEligible(@PathVariable String clientId) {
         log.info(this.getClass() + " *** performClientCheck method");
         boolean isEligible = clientServiceImplementation.isClientEligible(clientId);
 
@@ -31,6 +31,15 @@ public class ClientController {
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Client is not eligible for enrollment.");
         }
+    }
+
+    @GetMapping("/{clientId}")
+    @ApiOperation(value = "Perform Client Check", notes = "Check the reputation for enrollment")
+    public ResponseEntity<String> performClientCheck(@PathVariable String clientId) {
+        log.info(this.getClass() + " *** performClientCheck method");
+        String result = clientServiceImplementation.performClientCheck(clientId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping

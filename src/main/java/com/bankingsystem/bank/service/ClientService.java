@@ -9,7 +9,7 @@ public interface ClientService {
     boolean isClient(String clientId);
     boolean isClientEligible(String clientId);
     boolean isDocumentExpired(DocumentDto documentDto);
-    ClientDto performClientCheck(DocumentDto documentDto);
+    String performClientCheck(String clientId);
     String evaluateClient(int reputationScore);
     int queryReputationSystem(String clientId);
 

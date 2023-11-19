@@ -1,7 +1,6 @@
 package com.bankingsystem.bank.controller;
 
 import com.bankingsystem.bank.model.Document;
-import com.bankingsystem.bank.model.dto.DocumentDto;
 import com.bankingsystem.bank.service.DocumentServiceImplementation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,8 +3,6 @@ package com.bankingsystem.bank.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @AllArgsConstructor
 @Builder
 @Data

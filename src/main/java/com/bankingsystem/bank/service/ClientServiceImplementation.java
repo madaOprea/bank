@@ -94,11 +94,14 @@ public class ClientServiceImplementation implements ClientService {
         }
     }
 
-    public ClientDto performClientCheck(DocumentDto documentDto) {
+    public String performClientCheck(String clientId) {
         logger.info(this.getClass() + " *** performClientCheck method");
 
-        Document document = documentMapper.documentDtoToDocument(documentDto);
-        String clientId = document.getClient().getId();
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        Client client = clientOptional.get();
+        Document document = documentRepository.findByClient(client);
+        DocumentDto documentDto = documentMapper.documentToDocumentDto(document);
+
         String result;
 
         if (isDocumentExpired(documentDto)) {
@@ -110,7 +113,7 @@ public class ClientServiceImplementation implements ClientService {
 
         ClientDto resultDTO = new ClientDto();
         resultDTO.setResult(result);
-        return resultDTO;
+        return resultDTO.getResult();
     }
 
     public int queryReputationSystem(String clientId) {
