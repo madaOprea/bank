@@ -22,7 +22,7 @@ public class ClientController {
 
     @GetMapping("/{clientId}/eligibility")
     @ApiOperation(value = "Check Client Eligibility", notes = "Check if a client is eligible for enrollment")
-    public ResponseEntity<String> IsTheClientEligible(@PathVariable String clientId) {
+    public ResponseEntity<String> isTheClientEligible(@PathVariable String clientId) {
         log.info(this.getClass() + " *** performClientCheck method");
         boolean isEligible = clientServiceImplementation.isClientEligible(clientId);
 
@@ -37,9 +37,26 @@ public class ClientController {
     @ApiOperation(value = "Perform Client Check", notes = "Check the reputation for enrollment")
     public ResponseEntity<String> performClientCheck(@PathVariable String clientId) {
         log.info(this.getClass() + " *** performClientCheck method");
+
         String result = clientServiceImplementation.performClientCheck(clientId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        if (result != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/getLastClient")
+    @ApiOperation(value = "Get the last client", notes = "After introducing the client you can check the client")
+    public ResponseEntity<ClientDto> getTheLastClientAddedToDB() {
+        log.info(this.getClass() + " *** getTheLastClientAddedToDB");
+
+        ClientDto lastClient = clientServiceImplementation.getTheLastClientAdded();
+
+        if (lastClient != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(lastClient);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PostMapping

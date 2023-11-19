@@ -94,6 +94,10 @@ public class ClientServiceImplementation implements ClientService {
         }
     }
 
+    public ClientDto getTheLastClientAdded() {
+        return clientRepository.getTheLastClientAdded();
+    }
+
     public String performClientCheck(String clientId) {
         logger.info(this.getClass() + " *** performClientCheck method");
 
